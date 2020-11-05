@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>My experiment</title>
+		<script src="jspsych-6.1.0/jspsych.js"></script>
+		<script src="jspsych-6.1.0/plugins/jspsych-survey-text.js"></script>
+		<script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+		<script src="jspsych-6.1.0/plugins/jspsych-cloze.js"></script>
+		<script src="jspsych-6.1.0/plugins/jspsych-cloze-blank.js"></script>
+		<script src="jspsych-6.1.0/plugins/jspsych-animation.js"></script>
+		<script src="https://proliferate.alps.science/static/js/proliferate.js" type="text/javascript"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+		<link href="jspsych-6.1.0/css/animation.css" rel="stylesheet" type="text/css"></link>
+	</head>
+	<body>
+	</body>
+	<script>
+		
+		// The timeline array contains the set of trials we want to run in the experiment
+		var timeline = [];	
+
+		// Define instructions trial
+		var instructions = {
+		  type: "html-keyboard-response",
+		  stimulus: 
+		  	  "<p>A five-word sequence taken from a sentence will be given to you in random order.</p>"+
+		  	  "<p>Your task is to rearrange the words to match the original order from which they came.</p>" +
+		  	  "<p>However, you will not be given the original sentence.</p>"+
+		      "<p>For example:</p>" +
+		      "<video width='852' height='480' controls><source src='first_example_3.mp4' type='video/mp4'></video>"+
+			  "<p>Note two things.</p>" +
+		      "<p>1. The five words may have been taken from any point within a sentence.</p>" +
+		      "<video width='852' height='480' controls><source src='note1_example_(quicker).mp4' type='video/mp4'></video>"+
+		      "<p>2. If you encounter multiple possibilities like this, just pick one order.</p>" +
+		      "<video width='852' height='480' controls><source src='note2_example_final.mp4' type='video/mp4'></video>"+
+		      "<p>You will be given the option to re-randomize the words and clear your input.</p>"
+		};
+		timeline.push(instructions);
+
+		jsPsych.init({
+	       timeline: timeline,
+		});
+
+	</script>
+</html>
