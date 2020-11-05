@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>My experiment</title>
+		<script src="jspsych-6.1.0/jspsych.js"></script>
+		<script src="jspsych-6.1.0/plugins/jspsych-survey-text.js"></script>
+		<script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+		<script src="jspsych-6.1.0/plugins/jspsych-cloze.js"></script>
+		<script src="jspsych-6.1.0/plugins/jspsych-cloze-blank.js"></script>
+		<script src="jspsych-6.1.0/plugins/jspsych-animation.js"></script>
+		<script src="https://proliferate.alps.science/static/js/proliferate.js" type="text/javascript"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+		<link href="jspsych-6.1.0/css/animation.css" rel="stylesheet" type="text/css"></link>
+	</head>
+	<body>
+	</body>
+	<script>
+		
+		// The timeline array contains the set of trials we want to run in the experiment
+		var timeline = [];	
+
+		var legal = {
+			type: 'html-keyboard-response',
+			stimulus: '<p>University of California, Irvine Language Processing Group</p>'+
+    		'<p id="legal">By answering the following questions, you are participating in a study being performed by cognitive scientists in the University of California, Irvine Department of Language Science. If you have questions about this research, please contact Richard Futrell at rfutrell@uci.edu or Ryan Lee, at leerk3@uci.edu. You must be at least 18 years old to participate. Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you.</p>' +
+    		'<p>Press spacebar to continue.</p>'
+		};
+		timeline.push(legal)
+
+		// Define welcome message trial
+		var welcome = {
+			type: 'html-keyboard-response',
+			stimulus: 'Welcome to the experiment. Press spacebar to begin.'
+		};
+		timeline.push(welcome);
+
+
+		// Define instructions trial
+		var instructions = {
+		  type: "html-keyboard-response",
+		  stimulus: 
+		  	  "<p>A five-word sequence taken from a sentence will be given to you in random order.</p>"+
+		  	  "<p>Your task is to rearrange the words to match the original order from which they came.</p>" +
+		  	  "<p>However, you will not be given the original sentence.</p>"+
+		      "<p>For example:</p>" +
+		      // '<img src="jspsych-6.1.0/css/img/opening_example.gif" width="780"></img>'+
+		      "<video width='852' height='480' controls><source src='first_example_3.mp4' type='video/mp4'></video>"+
+		      "<p>Press spacebar to continue with the instructions.</p>",
+	      // post_trial_gap: 2000
+		};
+		timeline.push(instructions);
+
+		// Define notes trial
+		var notes = {
+		  type: "html-keyboard-response",
+		  stimulus: "<p>Note two things.</p>" +
+		      "<p>1. The five words may have been taken from any point within a sentence.</p>" +
+		      "<video width='852' height='480' controls><source src='note1_example_(quicker).mp4' type='video/mp4'></video>"+
+		      "<p>2. If you encounter multiple possibilities like this, just pick one order.</p>" +
+		      "<video width='852' height='480' controls><source src='note2_example_final.mp4' type='video/mp4'></video>"+
+		      "<p>You will be given the option to re-randomize the words and clear your input.</p>"+
+		      "<p>Press spacebar to continue.</p>",
+	      // post_trial_gap: 1000
+		};
+		timeline.push(notes);
+
+		// Define notes trial
+		var bonus = {
+		  type: "html-keyboard-response",
+		  stimulus: "<p>If you successfully match the original order for all trials, you will receive a bonus.</p>" +
+		      "<p>Good luck!</p>" +
+		      "<p>Press spacebar to continue.</p>",
+	      // post_trial_gap: 1000
+		};
+		timeline.push(bonus);
+
+		var most_likely_pre = [['you', 'will', 'come', 'to', 'me'],['he', 'had', 'to', 'be', 'taken'],['in', 'order', 'to', 'get', 'to'],['it', 'is', 'not', 'necessary', 'to'],['she', 'could', 'not', 'understand', 'how'],['a', 'great', 'deal', 'more', 'of'],['that', 'he', 'had', 'done', 'his'],['be', 'able', 'to', 'believe', 'that'],['did', 'not', 'know', 'that', 'his'],['that', 'he', 'would', 'not', 'understand'],['it', 'was', 'not', 'so', 'with'],['he', 'went', 'back', 'to', 'his'],['and', 'it', 'was', 'just', 'as'],['that', 'in', 'spite', 'of', 'his'],['he', 'felt', 'that', 'he', 'was'],['to', 'know', 'what', 'to', 'do'],['as', 'well', 'as', 'in', 'the'],['the', 'rest', 'of', 'the', 'world'],['and', 'you', 'will', 'not', 'be'],['there', 'was', 'no', 'time', 'to']]
+
+		var mid_likely_pre = [['take', 'a', 'quiet', 'minute', 'and'],['the', 'slow', 'rise', 'of', 'the'],['met', 'though', 'he', 'and', 'my'],['most', 'famous', 'is', 'a', 'diligent'],['are', 'my', 'comfort', 'and', 'some'],['them', 'that', 'both', 'human', 'nature'],['enemy', 'made', 'a', 'last', 'desperate'],['connected', 'with', 'the', 'wilderness', 'campaign'],['the', 'race', 'statistics', 'of', 'the'],['something', 'dreadful', 'has', 'happened', 'to'],['with', 'no', 'obstruction', 'between', 'us'],['she', 'might', 'risk', 'such', 'a'],['stood', 'in', 'corner', 'and', 'was'],['book', 'and', 'try', 'not', 'only'],['can', 'thank', 'you', 'enough', 'for'],['capture', 'it', 'again', 'and', 'give'],['shall', 'regard', 'them', 'as', 'having'],['lust', 'of', 'adventure', 'and', 'in'],['notable', 'that', 'though', 'she', 'never'],['that', 'her', 'temper', 'is', 'intractable']]
+
+		var least_likely_pre = [['choppers', 'would', 'load', 'and', 'some'],['aggressions', 'upon', 'the', 'south', 'its'],['idealize', 'our', 'romance', 'and', 'our'],['coaling', 'company', 'has', 'paid', 'its'],['southernly', 'world', 'which', 'had', 'centuries'],['ineptitudes', 'or', 'thinks', 'the', 'worse'],['falsifies', 'for', 'itself', 'certain', 'traits'],['concatenation', 'of', 'circumstances', 'needed', 'the'],['vociferating', 'oaths', 'dreadful', 'to', 'hear'],['moralities', 'our', 'actions', 'shine', 'alternately'],['turquoise', 'rings', 'would', 'not', 'console'],['summarize', 'his', 'views', 'as', 'he'],['concessionnaires', 'are', 'in', 'question', 'goes'],['learner', 'or', 'will', 'attach', 'himself'],['fielding', 'displayed', 'a', 'quiet', 'gentle'],['foreword', 'this', 'little', 'volume', 'the'],['ornamental', 'rim', 'to', 'the', 'pipe'],['imminently', 'his', 'avaricious', 'and', 'unfeeling'],['shaper', 'and', 'author', 'of', 'environment'],['menageries', 'under', 'it', 'as', 'children']]
+
+		most_likely_pre.splice(10,20)
+		mid_likely_pre.splice(10,20)
+		least_likely_pre.splice(10,20)
+
+		function shuffle(array) {
+		  var currentIndex = array.length, temporaryValue, randomIndex;
+
+		  // While there remain elements to shuffle...
+		  while (0 !== currentIndex) {
+
+		    // Pick a remaining element...
+		    randomIndex = Math.floor(Math.random() * currentIndex);
+		    currentIndex -= 1;
+
+		    // And swap it with the current element.
+		    temporaryValue = array[currentIndex];
+		    array[currentIndex] = array[randomIndex];
+		    array[randomIndex] = temporaryValue;
+		  }
+
+		  return array;
+		}
+
+		function get_trial_text(ordered, shuffled) {
+			var random_words_string = shuffled.join(' </a><a>');
+			var random_words_string = '<a>' + random_words_string + ' </a>'
+			var output_1 = '<p id=\'word-choices\'>'+random_words_string+"</p>"
+			var output_2 = "<p>"
+			ordered.forEach(function(each){
+				output_2 += "%" + each + "%"
+			})
+			output_2 += '</p><button class=\'randomize\'>Re-randomize word order</button><button class=\'clear\'>Clear</button>'
+			return output_1+output_2
+		}		
+
+		function fill_array(fill_from) {
+			final_array = []
+			fill_from.forEach(function(each){
+				ordered = each.slice()
+				shuffled = shuffle(each)
+				final_array.push({'text': get_trial_text(ordered, shuffled)})
+			})
+			return final_array
+		}
+
+		var most_likely = fill_array(most_likely_pre)
+		var mid_likely = fill_array(mid_likely_pre)
+		var least_likely = fill_array(least_likely_pre)
+		var test_stimuli = []
+
+		shuffle(least_likely)
+		shuffle(mid_likely)
+		shuffle(most_likely)
+		var first_set = most_likely.slice(0,3)
+		var pre_remaining_set = most_likely.slice(3).concat(mid_likely).concat(least_likely)
+		// var pre_remaining_set = most_likely.concat(mid_likely).concat(least_likely)
+		shuffle(pre_remaining_set)
+		var remaining_set = pre_remaining_set
+		test_stimuli = test_stimuli.concat(first_set)
+		test_stimuli = test_stimuli.concat(remaining_set)
+
+		var fixation = {
+		  type: 'html-keyboard-response',
+		  stimulus: function(){
+			var images = document.getElementsByTagName('img');
+			var l = images.length;
+			for (var i = 0; i < l; i++) {
+			    images[0].parentNode.removeChild(images[0]);
+			}
+		    var last_trial_correct = jsPsych.data.getLastTrialData();
+		  	if(last_trial_correct.values()[0].correct){
+		  		return '<img src="correct.png" width=100</img><p>Correct!</p>'
+		  	} else{
+		  		return '<p>Wrong.<p>'
+		  	}
+		  },
+		  choices: jsPsych.NO_KEYS,
+	      trial_duration: function(){
+		    var last_trial_correct = jsPsych.data.getLastTrialData();
+		  	if(last_trial_correct.values()[0].correct){
+		  		return 1000
+		  	} else{
+		  		return 4000
+		  	}
+		  },
+	      data: {test_part: 'fixation'}
+		};
+		var trial = {
+		    type: 'cloze',
+		    text: jsPsych.timelineVariable('text'),
+		    check_answers: true,
+		    button_text: 'Next',
+		    on_load: function(trial){
+			    var isTesting = document.getElementsByClassName('cloze');
+			    var inputs = isTesting[0].childNodes[1].childNodes
+			    var words = isTesting[0].childNodes[0].childNodes
+			    var words_copy = words
+			    var words_array = []
+			    words.forEach(word => words_array.push(word.text.trim()))
+			    isTesting[0].childNodes[1].childNodes.forEach(inputBox => inputBox.addEventListener('keyup',isMatch))
+			    isTesting[0].childNodes[2].addEventListener('click', randomize)
+			    isTesting[0].childNodes[3].addEventListener('click', clear)
+
+			    function isMatch(e) {
+			    	text_input = e.target.value
+			    	var line_through = 0
+					//console.log("text_input: "+text_input)
+			    	if (words_array.includes(text_input)) {
+			    		try{
+			    			//console.log("words_array: "+words_array.toString());
+			    			;
+			    			var occurence = 0;
+			    			words_array.forEach(word => (text_input == word ? occurence++ : ''));
+			    			(occurence > 1 ? (words[words_array.indexOf(text_input)].style.textDecoration=="line-through" ? words[words_array.indexOf(text_input, words_array.indexOf(text_input)+1)].style.textDecoration="line-through" : words[words_array.indexOf(text_input)].style.textDecoration="line-through") : words[words_array.indexOf(text_input)].style.textDecoration="line-through");
+			    			
+			    		} catch(e){
+			    			//console.log(e)
+			    		}
+			    	} else {
+			    		input_match = []
+			    		input_nonmatch = words_array.slice()
+			    		inputs.forEach(function(input) {
+			    			(words_array.includes(input.value.trim()) ? input_match.push(input.value.trim()) : '');
+			    			input_match.forEach(match => input_nonmatch.splice(input_nonmatch.indexOf(match)))
+			    			input_match.forEach(match => words[words_array.indexOf(match)].style.textDecoration="line-through")
+			    			input_nonmatch.forEach(nonmatch => words[words_array.indexOf(nonmatch)].style.textDecoration="none")
+			    		});
+			    	}
+			    }
+
+			    function randomize(e) {
+					for (i = isTesting[0].childNodes[0].childNodes.length; i >= 0; i--) {
+					    isTesting[0].childNodes[0].appendChild(isTesting[0].childNodes[0].children[Math.random() * i | 0]);
+					}
+				    words = isTesting[0].childNodes[0].childNodes
+				    words_copy = words
+				    words_array = []
+				    words.forEach(word => words_array.push(word.text.substring(0,word.text.length-1)))
+			    }
+
+			    function clear(e) {
+			    	isTesting[0].childNodes[1].childNodes.forEach(inputBox => inputBox.value = "")
+				    input_nonmatch = words_array.slice()
+				    input_nonmatch.forEach(nonmatch => words[words_array.indexOf(nonmatch)].style.textDecoration="none")
+			    }
+		    }
+
+		};
+		var test_procedure = {
+		  timeline: [ trial, fixation],
+		  timeline_variables: test_stimuli,
+		  randomize_order: false,
+		  repetitions: 1
+		};
+		timeline.push(test_procedure);
+
+		var debrief_block = {
+		  type: "html-keyboard-response",
+		  stimulus: function() {
+
+		    var trials = jsPsych.data.get().filter({test_part: 'test'});
+		    var correct_trials = trials.filter({correct: true});
+		    var accuracy = Math.round(correct_trials.count() / trials.count() * 100);
+		    var rt = Math.round(correct_trials.select('time_elapsed').mean())/1000;
+
+		    return "<p>You responded correctly on "+accuracy+"% of the trials.</p>"+
+		    "<p>Despite this, we've decided to award you the bonus anyway. Congratulations!</p>"+
+		    "<img src='star.gif'></img>"+
+		    "<p>Press any key to continue. Thank you!</p>";
+
+		  }
+		};
+		timeline.push(debrief_block);
+
+		var survey = {
+ 			type: 'cloze-blank',
+		    text: '<p>Please be sure to click submit to end the experiment.</p>'+
+		  '<p class="info">Answering these questions is optional, but will help us understand your answers.</p>'+  
+	      '<p>Did you read the instructions and do you think you did the experiment correctly? '+
+	      	  '<select id="understanding">'+
+	          '<label><option value=""/></label>'+
+	          '<label><option value="No"/>No</label>'+
+	          '<label><option value="Yes"/>Yes</label>'+
+	          '<label><option value="Confused"/>I was confused</label>'+
+	          '</select>'+
+	      '</p>'+
+	      '<p>Gender: '+
+	        '<select id="gender">'+
+	          '<label><option value=""/></label>'+
+	          '<label><option value="Male"/>Male</label>'+
+	          '<label><option value="Female"/>Female</label>'+
+	          '<label><option value="Other"/>Other</label>'+
+	        '</select>'+
+	      '</p>'+
+	      '<p>Age: <input type="text" id="age"/></p>'+
+	      '<p>Level Of Education: '+
+	        '<select id="education">'+
+	          '<label><option value="-1"/></label>'+
+	          '<label><option value="0"/>Some High School</label>'+
+	          '<label><option value="1"/>Graduated High School</label>'+
+	          '<label><option value="2"/>Some College</label>'+
+	          '<label><option value="3"/>Graduated College</label>'+
+	          '<label><option value="4"/>Hold a higher degree</label>'+
+	        '</select>'+
+	      '</p>'+
+	      '<p>Native Language: <input type="text" id="language"/></p>'+
+	      '<label>(the language(s) spoken at home when you were a child)</label>'+
+	     ' <p>Did you enjoy the experiment?</p>'+
+	      '<select id="enjoyment">'+
+	       ' <label><option value="-1"></option></label>'+
+	        '<label><option value="0">Worse than the average experiment</option></label>'+
+	        '<label><option value="1" >An average experiment</option></label>'+
+	        '<label><option value="2">Better than average experiment</option></label>'+
+	      '</select>'+
+	      '<p>We would be interested in any comments you have about this experiment. Please type them here:</p>'+
+	      '<textarea id="comments" rows="3" cols="50"></textarea>'+
+	      '<br/>'
+	      ,
+		    check_answers: false,
+		    button_text: 'Submit',
+		};
+		timeline.push(survey);
+
+
+		// let ppn = jsPsych.data.urlVariables()['ppn']
+		let ppn = jsPsych.data.urlVariables()
+		// call the saveData function after the experiment is over
+		jsPsych.init({
+	       timeline: timeline,
+		   // code to define the experiment structure would go here...
+            on_finish: function (data) {  
+            	console.log(data.values())  
+            	proliferate.submit({"trials": data.values(), "participant_id": ppn['participant_id'], "experiment_id": ppn['experiment_id']});
+                document.body.innerHTML = '<p> Please wait. You will be redirected back to Prolific in a few moments.</p>'
+                // window.location.assign("")
+                setTimeout(function () { location.href = "https://app.prolific.co/submissions/complete?cc=3A663B38" }, 3000)
+            }
+		});
+
+	</script>
+</html>
